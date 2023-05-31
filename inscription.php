@@ -39,5 +39,6 @@ if (isset($_POST['nom']) && isset($_POST['prenom']) && !empty($_POST['nom']) && 
     $p = new Demande_Inscription(1,$_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['mdp']);
     $daoInscription->Create($p);
 }
-header("location:index.html");
+
+header("location:index.html");//aa
 exit();
