@@ -1,9 +1,9 @@
 <?php
 
-require_once "./Metier/demande_inscription.php" ;
+require_once "./Metier/login.php" ;
 require_once "param_connexion.php";
 
-class DAO_Demande_Inscription
+class DAO_Login
 {
 
    private $Cnn ;  
@@ -21,38 +21,44 @@ class DAO_Demande_Inscription
 
    }
 
-   public function Create(Demande_Inscription $elem)
+   public function Create(Login $elem)
    {
 
-        $chSql = "INSERT INTO demande_inscription (Nom, Prenom, Email, Password) VALUES (:nom,:prenom,:email,:password)";
+
+
+        $chSql = "INSERT INTO login (Nom, Prenom, User, Pwd, role) VALUES (:nom,:prenom,:user,:pwd, :role)";
         $nom = $elem->getNom();
         $prenom = $elem->getPrenom();
-        $email = $elem->getEmail();
-        $password = $elem->getPassword();
+        $user = $elem->getUser();
+        $pwd = $elem->getPwd();
+        $role = $elem->getRole();
     
     try
     {
         $stmt = $this->Cnn->prepare($chSql);
         $stmt->bindParam(':nom', $nom);
         $stmt->bindParam(':prenom',$prenom);
-        $stmt->bindParam(':email',$email);
-        $stmt->bindParam(':password',$password);
+        $stmt->bindParam(':user',$user);
+        $stmt->bindParam(':pwd',$pwd);
+        $stmt->bindParam(':role',$role);
+        
 
         if ($stmt->execute())
         {
-            echo "Enregistrement réussi";
+            return true;
         }
         // $stmt->execute() ;
     }
     catch(Exception $e)
     {
-       echo $e->getMessage() ;
+        echo $e;
+       return false;
     }
    }
 
    public function Delete($id)
    {
-    $chSql = "Delete from demande_inscription where id = :id" ;
+    $chSql = "Delete from login where id = :id" ;
 
     try
     {
@@ -72,7 +78,7 @@ class DAO_Demande_Inscription
 
 public function Retreive($id)
 {
-    $chSql = "Select * from demande_inscription Where Id = :pid" ;
+    $chSql = "Select * from login Where id = :pid" ;
     
     try
     {
@@ -84,7 +90,7 @@ public function Retreive($id)
 
         if ($enr = $stmt->fetch())
         {
-            $u = new Demande_Inscription($enr->id, $enr->Nom,$enr->Prenom,$enr->Email,$enr->Password);
+            $u = new Login($enr->id, $enr->Nom,$enr->Prenom,$enr->User,$enr->Pwd,$enr->Role, $enr->Created_at);
             return $u;
         }
         else
@@ -100,7 +106,7 @@ public function Retreive($id)
 
 public function RetrieveAll()
 {
-    $chsql = "SELECT * FROM demande_inscription";
+    $chsql = "SELECT * FROM login";
 
 try {
     $stmt = $this->Cnn->prepare($chsql);
@@ -111,7 +117,7 @@ try {
 
 while ($enr = $stmt->fetch())
     {
-    $demande = new Demande_Inscription($enr->id, $enr->Nom, $enr->Prenom, $enr->Email, $enr->Password);
+    $demande = new Login($enr->id, $enr->Nom, $enr->Prenom, $enr->User, $enr->Pwd,$enr->Role, $enr->Created_at);
     $tablDemandes[] = $demande;
     }
 
@@ -124,38 +130,3 @@ return $tablDemandes;
 
 
 }
-
-// $p1 = new Demande_Inscription(1,"ZIDANE","ZIZOU","zizou@madrid.es","Marseille13*");
-
-// $daoInscription = new DAO_Demande_Inscription($dns,$user,$pwd);
-
-// $daoInscription->Create($p1);
-
-// $p = $daoInscription->Retreive(3);
-// echo $p->NomComplet();
-
-// $tbl1 = $daoInscription->RetreiveAll();
-// echo "<pre>" ;
-// var_dump($tbl1);
-// echo "</pre>" ;
-
-// $p = $daoInscription->Retreive(5);
-
-// if (!is_null($p))
-// {
-//     $p->setEmail("NouveauEmail@free.fr");
-//     $daoInscription->Update($p);
-//     $p = $daoInscription->Retreive(3);
-//     echo $p->getEmail();
-
-// }
-
-
-
-//$daoInscription->Delete(2);
-
-
-
-
-
-?>

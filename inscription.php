@@ -40,5 +40,5 @@ if (isset($_POST['nom']) && isset($_POST['prenom']) && !empty($_POST['nom']) && 
     $daoInscription->Create($p);
 }
 
-header("location:index.html");//aa
+header("location:index.html");
 exit();

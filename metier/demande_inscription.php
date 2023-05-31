@@ -78,9 +78,9 @@ class Demande_Inscription
 }
 
 
-$p1 = new Demande_Inscription(1,"ZIDANE","ZIZOU","zizou@madrid.es","Marseille13*");
-echo $p1->NomComplet()."<br>";
-$p1->setPrenom("ZINEDINE");
-echo $p1->NomComplet();
+// $p1 = new Demande_Inscription(1,"ZIDANE","ZIZOU","zizou@madrid.es","Marseille13*");
+// echo $p1->NomComplet()."<br>";
+// $p1->setPrenom("ZINEDINE");
+// echo $p1->NomComplet();
 
 ?>

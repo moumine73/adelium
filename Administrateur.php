@@ -21,27 +21,15 @@ require __DIR__ . "/Authentification.php";
     ?>
     <h1>Administrateur</h1>
 
+    <a href="gestion_demande_inscription.php">Gerer demande inscription</a>
+
+
+
+
     <?php
 
-    $sql = "SELECT * FROM formation_cda";
-    $result = $conn->query($sql);
-
-    // if ($result->num_rows > 0) {
-    //     while ($row = $result->fetch_assoc()) {
-    //         $nom = $row["nom"];
-    //         $prenom = $row["prenom"];
-    //         $email = $row["email"];
-
-    //         echo "Nom: " . $nom . "<br>";
-    //         echo "Prénom: " . $prenom . "<br>";
-    //         echo "Email: " . $email . "<br>";
-    //         echo "<br>";
-    //     }
-    // } else {
-    //     echo "Aucun utilisateur trouvé.";
-    // }
-
     ?>
+
 
 </body>
 

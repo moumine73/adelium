@@ -20,8 +20,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
         $user = $result->fetch_assoc();
         
+        
         if ($user)
         {
+            
             if (password_verify($_POST["password"], $user["Pwd"]))
             {
                 //Details($user);
@@ -52,7 +54,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
                 header("Location: $page");
                 exit;
             }
-
+            else
+            {
+                echo "mot de passe incorrecte";
+            }
+        }
+        else 
+        {
+            echo "utilisateur n'existe pas";
         }
 
         // echo "utilisateur : $utilisateur mdp = $mdp ";
